@@ -30,9 +30,14 @@ void RotaryEncoder::prepare()
 	}
 }
 
-char RotaryEncoder::getInput(int MaxWait)
+// Return:
+// 1: Left
+// 2: Right
+// 3: Button
+// -1: Timeout (only returns if maxWait seconds is specified and reached)
+char RotaryEncoder::getInput(int maxWait)
 {
-	long MaxMillis = millis() + MaxWait * 1000;
+	long MaxMillis = millis() + maxWait * 1000;
 
 	int dir_0, dir_1;
 
@@ -59,7 +64,7 @@ char RotaryEncoder::getInput(int MaxWait)
 					return 3;
 				}
 
-			if (MaxWait > -1)
+			if (maxWait > -1)
 				if (MaxMillis < millis()) return -1; // TIMEOUT
 		}
 
